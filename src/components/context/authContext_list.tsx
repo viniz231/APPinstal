@@ -43,16 +43,22 @@ export const AuthProviderList = (props: any): any => {
   };
 
   const _renderFlags = () => {
-    return flags.map((item, index) => (
-      <TouchableOpacity key={index} onPress={() => setSelectedFlag(item.caption)}>
+    return (
+      flags.map((item, index) => (
+      <TouchableOpacity key={index}
+       onPress={() =>{
+         setSelectedFlag(item.caption)
+       }}
+       >
         <Flag
           caption={item.caption}
           color={item.color}
-          selected={selectedFlag === item.caption}
+          selected={item.caption == selectedFlag}
         />
       </TouchableOpacity>
-    ));
-  };
+    ))
+  )
+  }
 
   const handleDateChange = (date: Date) => {
     setSelectedTime(date);
