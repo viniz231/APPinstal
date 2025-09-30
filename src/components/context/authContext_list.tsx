@@ -70,11 +70,11 @@ export const AuthProviderList = (props: any): any => {
 
   const handleSave = async () => {
     const newItem = {
-      id: Date.now(),
-      title,
-      description,
-      flag: selectedFlag,
-      deadline: `${selectedDate.toLocaleDateString()} ${selectedTime.toLocaleTimeString()}`,
+      item: Date.now(),
+      title: 'Titulo',
+      description: 'Descrição',
+      flag: 'Flags',
+      timeLimite: '01.02.2025'
     };
 
     console.log(newItem);
