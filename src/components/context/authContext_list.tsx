@@ -27,11 +27,12 @@ export const AuthProviderList = (props: any): any => {
   const modalizeRef = useRef<Modalize>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedFlag, setSelected] = useState("Urgente");
+  const [selectedFlag, setSelectedFlag] = useState("Urgente");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [item, setItem] = useState(0);
 
   const onOpen = () => {
     modalizeRef?.current?.open();
@@ -43,7 +44,7 @@ export const AuthProviderList = (props: any): any => {
 
   const _renderFlags = () => {
     return flags.map((item, index) => (
-      <TouchableOpacity key={index} onPress={() => setSelected(item.caption)}>
+      <TouchableOpacity key={index} onPress={() => setSelectedFlag(item.caption)}>
         <Flag
           caption={item.caption}
           color={item.color}
