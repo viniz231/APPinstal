@@ -27,12 +27,11 @@ export const AuthProviderList = (props: any): any => {
   const modalizeRef = useRef<Modalize>(null);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [selectedFlag, setSelectedFlag] = useState("Urgente");
+  const [selectedFlag, setSelected] = useState("Urgente");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedTime, setSelectedTime] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
-  const [item, setItem] = useState(0);
 
   const onOpen = () => {
     modalizeRef?.current?.open();
@@ -43,22 +42,16 @@ export const AuthProviderList = (props: any): any => {
   };
 
   const _renderFlags = () => {
-    return (
-      flags.map((item, index) => (
-      <TouchableOpacity key={index}
-       onPress={() =>{
-         setSelectedFlag(item.caption)
-       }}
-       >
+    return flags.map((item, index) => (
+      <TouchableOpacity key={index} onPress={() => setSelected(item.caption)}>
         <Flag
           caption={item.caption}
           color={item.color}
-          selected={item.caption == selectedFlag}
+          selected={selectedFlag === item.caption}
         />
       </TouchableOpacity>
-    ))
-  )
-  }
+    ));
+  };
 
   const handleDateChange = (date: Date) => {
     setSelectedTime(date);
@@ -70,11 +63,11 @@ export const AuthProviderList = (props: any): any => {
 
   const handleSave = async () => {
     const newItem = {
-      item: Date.now(),
-      title: 'Titulo',
-      description: 'Descrição',
-      flag: 'Flags',
-      timeLimite: '01.02.2025'
+      id: Date.now(),
+      title,
+      description,
+      flag: selectedFlag,
+      deadline: `${selectedDate.toLocaleDateString()} ${selectedTime.toLocaleTimeString()}`,
     };
 
     console.log(newItem);
