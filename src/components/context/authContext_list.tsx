@@ -64,21 +64,33 @@ export const AuthProviderList = (props: any): any => {
         setSelectedTime(date);
     }
 
-    const handleSave = () => {
-        const newItem = {
-            item: Date.now(),
-            title,
-            description,
-            flags: selectedFlag,
-            timeLimite: new Date(
-                selectedDate.getFullYear(),
-                selectedDate.getMonth(),
-                selectedDate.getDate(),
-                selectedTime.getHours(),
-                selectedTime.getMinutes()
-            ).toISOString(),
+    const handleSave = async () => {
+        if (!title || !description || !selectedFlag) {
+            return Alert.alert('Atenção', 'Preencha os campos corretamente!');
         }
-        console.log(newItem)
+        try {
+            const newItem = {
+                item: Date.now(),
+                title,
+                description,
+                flags: selectedFlag,
+                timeLimite: new Date(
+                    selectedDate.getFullYear(),
+                    selectedDate.getMonth(),
+                    selectedDate.getDate(),
+                    selectedTime.getHours(),
+                    selectedTime.getMinutes()
+                ).toISOString(),
+            }
+            const storageData = await AsyncStorage.getItem('tasklist');
+            console.log(storageData)
+            let taskList = storageData ? JSON.parse(storageData) : [];
+            taskList.push(newItem);
+            await AsyncStorage.setItem('tasklist', JSON.stringify(taskList))
+
+        } catch (error) {
+            console.log("Erro ao salvar o item", error)
+        }
 
     }
 
