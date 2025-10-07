@@ -17,8 +17,8 @@ export default function Login() {
 
     const navigation = useNavigation<NavigationProp<any>>();
 
-    const [email, setEmail] = useState('a');
-    const [password, setPassword] = useState('a');
+    const [email, setEmail] = useState('leo@gmail.com');
+    const [password, setPassword] = useState('123');
     const [showPassword, setShowPassword] = useState(true);
     const [loading, setLoading] = useState(false);
 
@@ -29,9 +29,13 @@ export default function Login() {
                 return Alert.alert('Atenção', 'Informe os campos obrigatórios!');
             }
 
-            navigation.reset({ routes: [{ name: "BottomRoutes" }] })
+            if (email === 'leo@gmail.com' && password == '123') {
+                navigation.reset({ routes: [{ name: "BottomRoutes" }] })
+            } else {
+                Alert.alert('Atenção!', 'Senha ou e-mail inválido!')
+            }
 
-            console.log("Logou!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            console.log("Logou!");
 
         } catch (error) {
             console.log(error);
